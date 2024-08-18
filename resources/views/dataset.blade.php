@@ -37,8 +37,11 @@
                 <thead class="table-light">
                     <tr>
                         <th>No</th>
-                        <th>Nama</th>
-                        <th>Username</th>
+                        <th>Nama Apps</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Average Rate</th>
+                        <th>Total Review</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,7 +51,7 @@
                             <td>{{ $dataset->name }}</td>
                             <td>{{ $dataset->category }}</td>
                             <td>{{ $dataset->desc }}</td>
-                            <td>{{ $dataset->avarage_rating }}</td>
+                            <td>{{ $dataset->average_rating }}</td>
                             <td>{{ $dataset->total_reviews }}</td>
                         </tr>
                     @endforeach

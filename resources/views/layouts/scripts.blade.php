@@ -26,18 +26,19 @@
   <script async defer src="https://buttons.github.io/buttons.js"></script>
 
   <script>
-    $(document).ready(function() {
-        $('#myTable').DataTable({
-            "language": {
-                "search": "",
-                "searchPlaceholder": "Search...",
-                "decimal": ",",
-                "thousands": ".",
-            },
-        });
+      $(document).ready(function() {
+          $('#myTable').DataTable({
+              "scrollX": true,
+              "language": {
+                  "search": "",
+                  "searchPlaceholder": "Search...",
+                  "decimal": ",",
+                  "thousands": ".",
+              },
+          });
 
-        $('.dataTables_filter input[type="search"]').css({
-            "marginBottom": "10px"
-        });
-    });
-</script>
+          $('.dataTables_filter input[type="search"]').css({
+              "marginBottom": "10px"
+          });
+      });
+  </script>

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('category');
-            $table->string('desc');
+            $table->text('desc');
             $table->float('average_rating');
             $table->integer('total_reviews');
             $table->timestamps();

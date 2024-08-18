@@ -31,16 +31,17 @@
                             <a class="nav-link active" aria-current="page" href="{{ route('review.index') }}">Review</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('sentimen.index') }}">Sentimen</a>
+                            <a class="nav-link " href="{{ route('sentimen.index') }}">Sentimen</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="card mb-5">
         <div class="card-body">
-            <table id="myTable" class="table text-nowrap mb-0">
+            <table id="myTable2" class="table text-nowrap mb-0">
                 <thead class="table-light">
                     <tr>
                         <th>No</th>
@@ -52,18 +53,46 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($reviews as $review)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $review->Application->name }}</td>
-                            <td>{{ $review->user_name }}</td>
-                            <td>{{ $review->rating }}</td>
-                            <td>{{ $review->review_text }}</td>
-                            <td>{{ $review->sentiment }}</td>
-                        </tr>
-                    @endforeach
                 </tbody>
             </table>
         </div>
     </div>
+@endsection
+
+@section('js')
+    <script type="text/javascript">
+        $(function() {
+            var table = $('#myTable2').DataTable({
+                processing: true,
+                scrollX: true,
+                serverSide: true,
+                ajax: '{{ route('review.index') }}',
+                columns: [{
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'application_name',
+                        name: 'application_name'
+                    },
+                    {
+                        data: 'user_name',
+                        name: 'user_name'
+                    },
+                    {
+                        data: 'rating',
+                        name: 'rating'
+                    },
+                    {
+                        data: 'review_text',
+                        name: 'review_text'
+                    },
+                    {
+                        data: 'sentiment',
+                        name: 'sentiment'
+                    },
+                ]
+            });
+        });
+    </script>
 @endsection

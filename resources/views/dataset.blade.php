@@ -31,6 +31,7 @@
             </div>
         </div>
     </div>
+
     <div class="card mb-5">
         <div class="card-body">
             <table id="myTable" class="table text-nowrap mb-0">
@@ -59,4 +60,56 @@
             </table>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="tambahModal" tabindex="-1" aria-labelledby="tambahModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tambahModalLabel">Crawling Data</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="crawlingForm">
+                        <div class="mb-3">
+                            <label for="appSelect" class="form-label">Pilih Aplikasi</label>
+                            <select class="form-select" id="appSelect" name="app_select">
+                                <option value="1">Gojek</option>
+                                <option value="2">Grab</option>
+                                <option value="3">InDrive</option>
+                            </select>
+                        </div>
+                        <button type="button" id="startCrawlingBtn" class="btn btn-primary">Mulai Crawling</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('startCrawlingBtn').addEventListener('click', function() {
+            const appSelect = document.getElementById('appSelect').value;
+
+            // Menjalankan AJAX request
+            fetch('http://localhost:5000/scrape', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}' // Hapus jika token tidak diperlukan
+                    },
+                    body: JSON.stringify({
+                        app_select: appSelect
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert('Crawling gagal: ' + data.error);
+                    } else {
+                        alert('Crawling berhasil dimulai.');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
 @endsection

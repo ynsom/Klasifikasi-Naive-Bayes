@@ -5,6 +5,9 @@ import pymysql
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import re
 import string
+import sys
+
+user_input = int(sys.argv[1])
 
 # Database connection
 db_user = "root"
@@ -16,12 +19,19 @@ connection_string = f"mysql+pymysql://{db_user}:{db_password}@{db_host}/{db_name
 db_engine = create_engine(connection_string)
 
 # ID aplikasi di Google Play Store
-app_id = "com.gojek.app"
+if user_input == 1:
+    app_id = "com.gojek.app"
+elif user_input == 2:
+    app_id = "com.grabtaxi.passenger"
+else:
+    app_id = "sinet.startup.inDriver"
 
 print("Mengambil data aplikasi...")
 # Mengambil data aplikasi
 app_data = app(app_id)
 print("Data aplikasi diambil.")
+
+
 def fetch_reviews(app_id, max_reviews):
     print("Mengambil ulasan...")
     all_reviews = []
@@ -57,9 +67,11 @@ def fetch_reviews(app_id, max_reviews):
     print(f"Total ulasan diambil: {len(all_reviews)}")
     return all_reviews[:max_reviews]
 
+
 # Ambil ulasan dengan batas 1000
 reviews = fetch_reviews(app_id, 1000)
 print("Ulasan berhasil diambil.")
+
 
 # Preprocessing teks
 def preprocess_text(text):
@@ -70,8 +82,10 @@ def preprocess_text(text):
     text = re.sub(r"\d+", "", text)
     return text
 
+
 # Initialize VADER sentiment analyzer
 analyzer = SentimentIntensityAnalyzer()
+
 
 # Function to classify sentiment using VADER
 def get_vader_sentiment(text):
@@ -82,6 +96,7 @@ def get_vader_sentiment(text):
         return "negative", sentiment_dict["compound"]
     else:
         return "neutral", sentiment_dict["compound"]
+
 
 print("Memproses data aplikasi...")
 # Insert application data

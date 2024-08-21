@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DatasetController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SentimentController;
 use App\Http\Controllers\UserController;
@@ -18,10 +20,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('dashboard');
+    return redirect('/login');
 });
 
-Route::prefix('/dashboard')->group(function () {
+Route::controller(LoginController::class)->group(function () {
+    Route::get('/login', 'index')->name('login')->middleware('guest');
+    Route::post('/login', 'authenticate');
+    Route::post('/logout', 'logout');
+});
+
+Route::prefix('/dashboard')->middleware('auth')->group(function () {
+    Route::get('/', [DashboardController::class, 'index']);
     Route::resource('/users', UserController::class);
     Route::post('/users/reset-password', [UserController::class, 'reset'])->name('users.reset');
 

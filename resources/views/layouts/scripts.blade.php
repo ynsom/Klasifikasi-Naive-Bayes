@@ -17,8 +17,6 @@
   <!-- Main JS -->
   <script src="{{ asset('assets/js/main.js') }}"></script>
 
-
-
   <!-- Page JS -->
   <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
 
@@ -29,6 +27,8 @@
       $(document).ready(function() {
           $('#myTable').DataTable({
               "scrollX": true,
+              "responsive": true,
+              "autoWidth": false,
               "language": {
                   "search": "",
                   "searchPlaceholder": "Search...",

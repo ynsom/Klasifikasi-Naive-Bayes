@@ -38,10 +38,10 @@
             </div>
         </div>
     </div>
-    
+
     <div class="card mb-5">
         <div class="card-body">
-            <table id="myTable" class="table text-nowrap mb-0">
+            <table id="myTable" class="table text-nowrap w-full mb-0">
                 <thead class="table-light">
                     <tr>
                         <th>No</th>
